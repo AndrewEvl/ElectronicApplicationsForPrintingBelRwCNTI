@@ -13,4 +13,6 @@ public interface BidService {
     Optional<Bid> findById(Long id);
 
     void delete(Bid bid);
+
+    Iterable<Bid> findAllPerNowMounts ();
 }

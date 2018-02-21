@@ -40,4 +40,9 @@ public class BidServiceImpl implements BidService {
     public void delete(Bid bid) {
         bidRepository.delete(bid);
     }
+
+    @Override
+    public Iterable<Bid> findAllPerNowMounts() {
+        return null;
+    }
 }

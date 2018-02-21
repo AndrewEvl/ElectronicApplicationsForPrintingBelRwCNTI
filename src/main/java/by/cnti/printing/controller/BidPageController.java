@@ -82,11 +82,18 @@ public class BidPageController {
         bid.setDate(LocalDate.now());
         bid.setStatusWork(statusWork);
         bidService.save(bid);
-        return "redirect:/successfulBid";
+        return "redirect:/successful-bid";
     }
 
-    @GetMapping("/successfulBid")
+    @GetMapping("/successful-bid")
     public String successfulPageGet (){
         return "successfulPage";
+    }
+
+    @GetMapping("list-bids")
+    public String listBidGet (Model model){
+        Iterable<Bid> all = bidService.findAll();
+        model.addAttribute("allBid",all);
+        return "listBidPage";
     }
 }

@@ -31,3 +31,6 @@ INSERT INTO role (role) VALUE ('User');
 
 INSERT INTO status_work (work_status) VALUE ('Не готово');
 INSERT INTO status_work (work_status) VALUE ('Готово!');
+
+
+SELECT * FROM bid WHERE date = ?
