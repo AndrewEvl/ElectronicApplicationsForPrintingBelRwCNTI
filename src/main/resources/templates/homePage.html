@@ -9,7 +9,7 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/}" method="post" th:object="${bid}">
+<form th:action="@{/}" method="post" th:object="${bidDto}">
     <p><label th:for="documentName">Enter document name</label>
         <label>
             <input type="text" th:field="*{documentName}">
@@ -22,16 +22,30 @@
         <label>
             <input type="text" th:field="*{edition}">
         </label></p>
-    <p><select th:field="*{paperSize}">
+    <p><select th:field="*{paperSizeId}">
         <option th:each="paperSize : ${allPaperSize}"
-                th:value="${paperSize}"
-                th:text="${paperSize}">
+                th:value="${paperSize.id}"
+                th:text="${paperSize.size}">
         </option>
     </select></p>
-    <p><select th:field="*{department}">
+    <p><select th:field="*{departmentId}">
         <option th:each="department : ${allDepartments}"
-                th:value="${department}"
-                th:text="${department}">
+                th:value="${department.id}"
+                th:text="${department.name}">
+        </option>
+    </select></p>
+    </select></p>
+    <p><select th:field="*{paperDensityId}">
+        <option th:each="allPaperDensity : ${allPaperDensity}"
+                th:value="${allPaperDensity.id}"
+                th:text="${allPaperDensity.density}">
+        </option>
+    </select></p>
+    </select></p>
+    <p><select th:field="*{printerModelId}">
+        <option th:each="allPrinters : ${allPrinters}"
+                th:value="${allPrinters.id}"
+                th:text="${allPrinters.model}">
         </option>
     </select></p>
     <button type="submit">Save bid</button>
