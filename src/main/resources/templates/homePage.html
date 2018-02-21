@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/}" method="post" th:object="${bid}">
+    <p><label th:for="documentName">Enter document name</label>
+        <label>
+            <input type="text" th:field="*{documentName}">
+        </label></p>
+    <p><label th:for="customerOder">Enter you last name</label>
+        <label>
+            <input type="text" th:field="*{customerOder}">
+        </label></p>
+    <p><label th:for="edition">Enter edition document</label>
+        <label>
+            <input type="text" th:field="*{edition}">
+        </label></p>
+    <p><select th:field="*{paperSize}">
+        <option th:each="paperSize : ${allPaperSize}"
+                th:value="${paperSize}"
+                th:text="${paperSize}">
+        </option>
+    </select></p>
+    <p><select th:field="*{department}">
+        <option th:each="department : ${allDepartments}"
+                th:value="${department}"
+                th:text="${department}">
+        </option>
+    </select></p>
+    <button type="submit">Save bid</button>
+</form>
+</body>
+</html>
