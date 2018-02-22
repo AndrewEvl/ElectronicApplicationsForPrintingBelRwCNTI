@@ -92,8 +92,8 @@ public class BidPageController {
 
     @GetMapping("/list-bids-now-mount")
     public String listBidGet (Model model){
-        Iterable<Bid> all = bidService.findAllNowMonth();
-        model.addAttribute("allBidNowMounts",all);
+        Iterable<Bid> all = bidService.findAll();
+        model.addAttribute("all",all);
         return "listBidPage";
     }
 }

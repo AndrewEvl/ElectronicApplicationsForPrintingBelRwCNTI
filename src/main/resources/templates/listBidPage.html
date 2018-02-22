@@ -10,11 +10,11 @@
 </head>
 <body>
 <ui>
-    <tr th:each="allBid : ${allBidNowMounts}">All bid nuw mounts: </tr>
-        <!--<h th:text="*{allBid.id}">-->
-    <!--<t th:text="${allBid.department.name}"></t>-->
-    <!--<td th:text="${allBid.documentName}"></td>-->
-    <td th:text="${allBid.customerOder}"></td>
+    <tr th:each="all : ${all}">All bid nuw mounts: </tr>
+    <!--<td th:text="${all.id}"></td>-->
+    <td th:text="${all.department}"></td>
+    <td th:text="${all.documentName}"></td>
+    <td th:text="${all.customerOder}"></td>
         <!--<p th:text="*{allBid.edition}">-->
         <!--<p th:text="*{allBid.paperSize.size}">-->
         <!--<p th:text="*{allBid.paperDensity.density}">-->
@@ -23,7 +23,7 @@
     <!--<td th:text="*{allBid.date}"></td>-->
         <!--<p th:text="*{}">-->
         <!--<p th:text="*{}">-->
-    </h>
+    </td>
 </ui>
 </body>
 </html>
