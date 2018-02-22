@@ -9,21 +9,19 @@
     <title>Title</title>
 </head>
 <body>
-<ui>
-    <tr th:each="all : ${all}">All bid nuw mounts: </tr>
-    <!--<td th:text="${all.id}"></td>-->
-    <td th:text="${all.department}"></td>
-    <td th:text="${all.documentName}"></td>
-    <td th:text="${all.customerOder}"></td>
-        <!--<p th:text="*{allBid.edition}">-->
-        <!--<p th:text="*{allBid.paperSize.size}">-->
-        <!--<p th:text="*{allBid.paperDensity.density}">-->
-        <!--<p th:text="*{allBid.printer.model}">-->
-        <!--<p th:text="*{allBid.statusWork.statusWork}">-->
-    <!--<td th:text="*{allBid.date}"></td>-->
-        <!--<p th:text="*{}">-->
-        <!--<p th:text="*{}">-->
-    </td>
-</ui>
+<tr th:each="all : ${all}">
+    <td th:text="${all.id}"></td>
+    <td th:utext="${all.department.name}"></td>
+    <td th:utext="${all.documentName}"></td>
+    <td th:utext="${all.customerOder}"></td>
+    <td th:text="${all.edition}"></td>
+    <td th:text="${all.paperSize.size}"></td>
+    <td th:text="${all.paperDensity.density}"></td>
+    <td th:text="${all.printer.model}"></td>
+    <td th:text="${all.statusWork.statusWork}"></td>
+    <td th:text="${all.date}"></td>
+    <!--<p th:text="*{}">-->
+    <!--<p th:text="*{}">-->
+</tr>
 </body>
 </html>
