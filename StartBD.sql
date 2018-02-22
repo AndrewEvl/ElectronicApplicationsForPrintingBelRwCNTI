@@ -33,4 +33,6 @@ INSERT INTO status_work (work_status) VALUE ('Не готово');
 INSERT INTO status_work (work_status) VALUE ('Готово!');
 
 
-SELECT * FROM bid WHERE date = ?
+
+# SELECT * FROM bid WHERE month(date) = MONTH(now())AND YEAR(date) = YEAR(NOW());
+# SELECT * FROM bid WHERE month(date) = MONTH(DATE_ADD(NOW(), INTERVAL -1 MONTH))AND YEAR(date) = YEAR(now());

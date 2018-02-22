@@ -1,13 +1,14 @@
 package by.cnti.printing.service.impl;
 
 
-import by.cnti.printing.entity.Bid;
+import by.cnti.printing.entity.*;
 import by.cnti.printing.repository.BidRepository;
 import by.cnti.printing.service.interfaceService.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -42,7 +43,27 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public Iterable<Bid> findAllPerNowMounts() {
-        return null;
+    public List<Bid> findAllNowMonth() {
+        return bidRepository.findAllBidPMountNow();
+    }
+
+    @Override
+    public List<Bid> findAllLastMonth() {
+        return bidRepository.findAllBidByLastMounts();
+    }
+
+    @Override
+    public List<Bid> findAllByPaperDensityAndPaperSize(PaperDensity paperDensity, PaperSize paperSize) {
+        return bidRepository.findAllByPaperDensityAndPaperSize(paperDensity,paperSize);
+    }
+
+    @Override
+    public List<Bid> findAllByPrinter(PrinterModel printerModel) {
+        return bidRepository.findAllByPrinter(printerModel);
+    }
+
+    @Override
+    public List<Bid> findAllByStatusWork(StatusWork statusWork) {
+        return bidRepository.findAllByStatusWork(statusWork);
     }
 }

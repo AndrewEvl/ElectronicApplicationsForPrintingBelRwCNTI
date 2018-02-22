@@ -1,7 +1,8 @@
 package by.cnti.printing.service.interfaceService;
 
-import by.cnti.printing.entity.Bid;
+import by.cnti.printing.entity.*;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BidService {
@@ -14,5 +15,13 @@ public interface BidService {
 
     void delete(Bid bid);
 
-    Iterable<Bid> findAllPerNowMounts ();
+    List<Bid> findAllNowMonth();
+
+    List<Bid> findAllLastMonth();
+
+    List<Bid> findAllByPaperDensityAndPaperSize(PaperDensity paperDensity, PaperSize paperSize);
+
+    List<Bid> findAllByPrinter(PrinterModel printerModel);
+
+    List<Bid> findAllByStatusWork (StatusWork statusWork);
 }

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 public class BidPageController {
@@ -90,10 +90,10 @@ public class BidPageController {
         return "successfulPage";
     }
 
-    @GetMapping("list-bids")
+    @GetMapping("/list-bids-now-mount")
     public String listBidGet (Model model){
-        Iterable<Bid> all = bidService.findAll();
-        model.addAttribute("allBid",all);
+        Iterable<Bid> all = bidService.findAllNowMonth();
+        model.addAttribute("allBidNowMounts",all);
         return "listBidPage";
     }
 }
