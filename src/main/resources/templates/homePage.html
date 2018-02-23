@@ -7,48 +7,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../static/js/bootstrap.min.js" th:href="@{/js/jquery-3.2.1.min.js}" rel="stylesheet" media="screen"/>
+    <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+    <script language="JavaScript">
+        function hello() {
+            var message = document.createElement('message');
+            document.body.appendChild(message);
+            message.appendChild(document.createTextNode("Заявка отправленна!"));
+        }
+    </script>
 </head>
+<style type="text/css">
+    table th, table td {
+        padding: auto;
+    }
+
+    body {
+        background: #adadad;
+        color: #1d1e1f;
+    }
+</style>
 <body>
-<form th:action="@{/}" method="post" th:object="${bidDto}">
-    <p><label th:for="documentName">Enter document name</label>
-        <label>
-            <input type="text" th:field="*{documentName}">
+<!--<div th:replace="fragments :: header"/>-->
+<div align="left">
+    <form th:action="@{/}" method="post" th:object="${bidDto}">
+        <label th:for="documentName"></label>
+        <p><label>
+                <textarea type="text" rows="2" cols="80" placeholder="Название документа" th:field="*{documentName}"
+                          required autofocus></textarea>
         </label></p>
-    <p><label th:for="customerOder">Enter you last name</label>
+        <label th:for="customerOder">Фамилия заказчика :</label>
         <label>
-            <input type="text" th:field="*{customerOder}">
-        </label></p>
-    <p><label th:for="edition">Enter edition document</label>
+            <input type="text" placeholder="Ваше ФИО" th:field="*{customerOder}" required autofocus>
+        </label>
+        <label th:for="edition">Колличество копий :</label>
+
         <label>
-            <input type="text" th:field="*{edition}">
-        </label></p>
-    <p><select th:field="*{paperSizeId}">
-        <option th:each="paperSize : ${allPaperSize}"
-                th:value="${paperSize.id}"
-                th:text="${paperSize.size}">
-        </option>
-    </select></p>
-    <p><select th:field="*{departmentId}">
-        <option th:each="department : ${allDepartments}"
-                th:value="${department.id}"
-                th:text="${department.name}">
-        </option>
-    </select></p>
-    </select></p>
-    <p><select th:field="*{paperDensityId}">
-        <option th:each="allPaperDensity : ${allPaperDensity}"
-                th:value="${allPaperDensity.id}"
-                th:text="${allPaperDensity.density}">
-        </option>
-    </select></p>
-    </select></p>
-    <p><select th:field="*{printerModelId}">
-        <option th:each="allPrinters : ${allPrinters}"
-                th:value="${allPrinters.id}"
-                th:text="${allPrinters.model}">
-        </option>
-    </select></p>
-    <button type="submit">Save bid</button>
-</form>
+            <input type="number" style="width: 50px" min="1" placeholder="1...." th:field="*{edition}" required
+                   autofocus>
+        </label>
+        <p>
+            <select th:field="*{paperSizeId}" autofocus>
+                <option th:each="paperSize : ${allPaperSize}"
+                        th:value="${paperSize.id}"
+                        th:text="${paperSize.size}">
+                </option>
+            </select>
+
+            <select th:field="*{paperDensityId}">
+                <option th:each="allPaperDensity : ${allPaperDensity}"
+                        th:value="${allPaperDensity.id}"
+                        th:text="${allPaperDensity.density}">
+                </option>
+            </select>
+
+            <select th:field="*{departmentId}" autofocus>
+                <option th:each="department : ${allDepartments}"
+                        th:value="${department.id}"
+                        th:text="${department.name}">
+                </option>
+            </select>
+
+            <select th:field="*{printerModelId}">
+                <option th:each="allPrinters : ${allPrinters}"
+                        th:value="${allPrinters.id}"
+                        th:text="${allPrinters.model}">
+                </option>
+            </select>
+        </p>
+        <button type="submit" onclick="hello()" style="color: #01549b">Отправить на печать</button>
+    </form>
+</div>
+
+
+<script th:src="@{../static/js/app.js}"></script>
+<script th:src="@{../static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
 </body>
+<footer>
+    <div id="footer">
+        <div>
+            Andrew Evlash Minsk 2018
+        </div>
+    </div>
+</footer>
 </html>

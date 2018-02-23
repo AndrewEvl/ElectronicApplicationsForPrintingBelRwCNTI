@@ -23,5 +23,9 @@ public interface BidService {
 
     List<Bid> findAllByPrinter(PrinterModel printerModel);
 
-    List<Bid> findAllByStatusWork (StatusWork statusWork);
+    List<Bid> findAllByStatusWork(StatusWork statusWork);
+
+    List<Bid> findAllByAllowIsNull();
+
+    Bid updateBid (Long id);
 }

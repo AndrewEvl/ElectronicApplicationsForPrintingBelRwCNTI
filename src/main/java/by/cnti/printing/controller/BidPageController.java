@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BidPageController {
@@ -38,19 +41,19 @@ public class BidPageController {
     }
 
     @ModelAttribute("bid")
-    public Bid bid (){
+    public Bid bid() {
         return new Bid();
     }
 
     @ModelAttribute("bidDto")
-    public BidDto bidDto(){
+    public BidDto bidDto() {
         return new BidDto();
     }
 
     @GetMapping("/")
-    public String bidPageGet (Model model){
+    public String bidPageGet(Model model) {
         Iterable<PaperSize> allPaperSize = paperSizeService.findAll();
-        Iterable<PaperDensity> allPaperDensity= paperDensityService.findAll();
+        Iterable<PaperDensity> allPaperDensity = paperDensityService.findAll();
         Iterable<Department> allDepartments = departmentService.findAll();
         Iterable<PrinterModel> allPrinterModel = printerModelService.findAll();
         model.addAttribute("allPaperSize", allPaperSize);
@@ -61,7 +64,7 @@ public class BidPageController {
     }
 
     @PostMapping("/")
-    public String bidPagePost (BidDto bidDto){
+    public String bidPagePost(BidDto bidDto) {
         Bid bid = new Bid();
         StatusWork statusWork = new StatusWork();
 
@@ -83,18 +86,44 @@ public class BidPageController {
         bid.setDate(LocalDate.now());
         bid.setStatusWork(statusWork);
         bidService.save(bid);
-        return "redirect:/successful-bid";
+        return "redirect:/";
     }
 
     @GetMapping("/successful-bid")
-    public String successfulPageGet (){
+    public String successfulPageGet() {
         return "successfulPage";
     }
 
     @GetMapping("/list-bids-now-mount")
-    public String listBidGet (Model model){
+    public String listBidGet(Model model) {
         Iterable<Bid> all = bidService.findAllNowMonth();
-        model.addAttribute("all",all);
+        model.addAttribute("all", all);
         return "listBidPage";
+    }
+
+    @GetMapping("/approval-bid")
+    public String approvalBidGet(Model model) {
+        List<Bid> allByAllowIsNull = bidService.findAllByAllowIsNull();
+        model.addAttribute("bids", allByAllowIsNull);
+        return "approvalBidPage";
+    }
+
+    @PostMapping("/approval-bid")
+    public String approvalBidPost (Model model, Bid bid){
+        Long id = bid.getId();
+        model.addAttribute("id", id);
+        return "redirect:/approval-bid/{id}";
+    }
+
+    @GetMapping("redir-page/{id}")
+    public String redirPage (@PathVariable("id") Long id){
+        bidService.updateBid(id);
+        return "redirect:/approval-bid";
+    }
+
+    @GetMapping("/approval-bid/{id}")
+    public String approvalIdBid (@PathVariable("id") Long id){
+
+        return "redirect:/approval-bid";
     }
 }

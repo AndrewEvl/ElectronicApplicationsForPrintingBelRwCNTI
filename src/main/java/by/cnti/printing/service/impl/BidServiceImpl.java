@@ -66,4 +66,14 @@ public class BidServiceImpl implements BidService {
     public List<Bid> findAllByStatusWork(StatusWork statusWork) {
         return bidRepository.findAllByStatusWork(statusWork);
     }
+
+    @Override
+    public List<Bid> findAllByAllowIsNull() {
+        return bidRepository.findAllByAllowIsNull();
+    }
+
+    @Override
+    public Bid updateBid(Long id) {
+        return bidRepository.updateBid(id);
+    }
 }

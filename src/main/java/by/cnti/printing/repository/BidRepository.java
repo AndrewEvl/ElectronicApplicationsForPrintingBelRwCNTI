@@ -23,4 +23,9 @@ public interface BidRepository extends CrudRepository<Bid, Long> {
     List<Bid> findAllByPrinter(PrinterModel printerModel);
 
     List<Bid> findAllByStatusWork(StatusWork statusWork);
+
+    List<Bid> findAllByAllowIsNull();
+
+    @Query (value = "UPDATE bid SET bid.allow = ('Одобренно') WHERE bid.id = ?" , nativeQuery = true)
+    Bid updateBid (Long id);
 }
