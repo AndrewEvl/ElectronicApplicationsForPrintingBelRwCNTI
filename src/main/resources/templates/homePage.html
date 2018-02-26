@@ -8,7 +8,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="../static/js/bootstrap.min.js" th:href="@{/js/jquery-3.2.1.min.js}" rel="stylesheet" media="screen"/>
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
     <script language="JavaScript">
@@ -18,19 +19,37 @@
             message.appendChild(document.createTextNode("Заявка отправленна!"));
         }
     </script>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #464a4c;
+            color: black;
+            text-align: left;
+        }
+    </style>
 </head>
+
 <style type="text/css">
     table th, table td {
         padding: auto;
     }
 
     body {
-        background: #adadad;
-        color: #1d1e1f;
+        background-image: url('/pic/backgroung.png');
+        background-size: 100%;
     }
 </style>
 <body>
-<!--<div th:replace="fragments :: header"/>-->
+<div>
+    <a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a>|
+    <a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a>|
+    <a th:href="@{/approval-bid}">Одобрения заявки</a>|
+    <a th:href="@{/}">Заявка</a>
+</div>
+<!--<div th:replace="fragments/header :: header"/>-->
 <div align="left">
     <form th:action="@{/}" method="post" th:object="${bidDto}">
         <label th:for="documentName"></label>
@@ -38,11 +57,11 @@
                 <textarea type="text" rows="2" cols="80" placeholder="Название документа" th:field="*{documentName}"
                           required autofocus></textarea>
         </label></p>
-        <label th:for="customerOder">Фамилия заказчика :</label>
+        <label th:for="customerOder" style="color: white">Фамилия заказчика :</label>
         <label>
             <input type="text" placeholder="Ваше ФИО" th:field="*{customerOder}" required autofocus>
         </label>
-        <label th:for="edition">Колличество копий :</label>
+        <label th:for="edition" style="color: white">Колличество копий :</label>
 
         <label>
             <input type="number" style="width: 50px" min="1" placeholder="1...." th:field="*{edition}" required
@@ -85,17 +104,16 @@
 <script th:src="@{../static/js/app.js}"></script>
 <script th:src="@{../static/js/bootstrap.min.js}"></script>
 <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+
+<!--<div th:replace="fragments/footer :: footer"/>-->
+<div class="footer">
+    <p>
+        |Created by Andrew Evlash|
+        © 2018 Minsk.
+        <span>
+        <a th:href="@{/login}">adm</a>
+        </span>
+    </p>
+</div>
 </body>
-<footer>
-    <div id="footer">
-        <div>
-            <dr/>
-            <dr/>
-            <dr/>
-            <dr/>
-            Andrew Evlash
-             Minsk 2018
-        </div>
-    </div>
-</footer>
 </html>

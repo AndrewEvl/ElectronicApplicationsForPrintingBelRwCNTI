@@ -89,16 +89,18 @@ public class BidPageController {
         return "redirect:/";
     }
 
-    @GetMapping("/successful-bid")
-    public String successfulPageGet() {
-        return "successfulPage";
-    }
-
     @GetMapping("/list-bids-now-mount")
     public String listBidGet(Model model) {
         Iterable<Bid> all = bidService.findAllNowMonth();
         model.addAttribute("all", all);
         return "listBidPage";
+    }
+
+    @GetMapping("/list-bids-last-mount")
+    public String listBidLastGet(Model model) {
+        Iterable<Bid> all = bidService.findAllLastMonth();
+        model.addAttribute("all", all);
+        return "listBidLastMountsPage";
     }
 
     @GetMapping("/approval-bid")

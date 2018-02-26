@@ -3,21 +3,31 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .footer {
+            position: page;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #01549b;
+            color: black;
+            text-align: left;
+        }
+    </style>
+    <meta charset="UTF-8">
     <title>Footer</title>
 </head>
 <body>
-<div th:fragment="footer">
-    <footer>
-        <br>
-        <br>
-        <br>
-        <br>
+<div class="footer">
+    <p>
         |Created by Andrew Evlash|
         © 2018 Minsk.
-        <span>
-           <a th:href="@{/login}">adm</a>
-        </span>
-    </footer>
+        <!--<span>-->
+           <!--<a th:href="@{/login}">adm</a>-->
+        <!--</span>-->
+    </p>
 </div>
 </body>
 </html>
