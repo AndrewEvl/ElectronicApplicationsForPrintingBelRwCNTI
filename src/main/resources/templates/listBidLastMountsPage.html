@@ -13,22 +13,21 @@
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <style type="text/css">
-    /*table th, table td {*/
-        /*padding: auto;*/
-        /*background: wheat;*/
-    /*}*/
+    table th, table td {
+        padding: auto;
+    }
 
     body {
-        background: #adadad;
-        color: #1d1e1f;
+        background-image: url('/pic/backgroung.png');
+        background-size: 100%;
     }
 </style>
 <body>
 <!--<div th:replace="fragments/header :: header"/>-->
 <div class="container-fluid">
     <div class="row">
-        <table border="1" class="table table-striped">
-            <thead>
+        <table border="1" bgcolor="white" class="table">
+            <thead th:bgcolor="white">
             <tr>
                 <th align="center">Номер</th>
                 <th align="center">Отдел</th>
@@ -44,7 +43,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:scope="row" th:each="all : ${all}">
+            <tr th:scope="row" bgcolor="white" th:each="all : ${all}">
                 <td align="center" th:text="${all.id}"></td>
                 <td align="center" th:text="${all.department.name}"></td>
                 <td align="center" th:text="${all.documentName}"></td>

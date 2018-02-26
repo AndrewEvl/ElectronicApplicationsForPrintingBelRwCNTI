@@ -11,6 +11,16 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="../static/js/bootstrap.min.js" th:href="@{/js/jquery-3.2.1.min.js}" rel="stylesheet" media="screen"/>
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+    <style type="text/css">
+        table th, table td {
+            padding: auto;
+        }
+
+        body {
+            background-image: url('/pic/backgroung.png');
+            background-size: 100%;
+        }
+    </style>
 </head>
 <body>
 <!--<div th:replace="fragments/header :: header"/>-->
@@ -18,8 +28,8 @@
     <div class="container-fluid">
 
         <div class="row">
-            <table border="1" class="table table-hover">
-                <thead>
+            <table border="1" bgcolor="white"  class="table">
+                <thead data-th-bgcolor="white">
                 <tr>
                     <th align="center">Номер</th>
                     <th align="center">Отдел</th>
@@ -35,7 +45,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:scope="row" th:each="all : ${bids}">
+                <tr th:scope="row" bgcolor="white" th:each="all : ${bids}">
                     <td align="center" th:text="${all.id}"></td>
                     <td align="center" th:text="${all.department.name}"></td>
                     <td align="center">
