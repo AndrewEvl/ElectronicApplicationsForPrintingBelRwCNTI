@@ -6,7 +6,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Отправка заявки</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -43,7 +43,7 @@
     }
 </style>
 <body>
-<div>
+<div th:if)>
     <a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a>|
     <a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a>|
     <a th:href="@{/approval-bid}">Одобрения заявки</a>|
@@ -108,9 +108,9 @@
 <!--<div th:replace="fragments/footer :: footer"/>-->
 <div class="footer">
     <p>
-        |Created by Andrew Evlash|
+        Created by Andrew Evlash
         © 2018 Minsk.
-        <span>
+    <span>
         <a th:href="@{/login}">adm</a>
         </span>
     </p>
