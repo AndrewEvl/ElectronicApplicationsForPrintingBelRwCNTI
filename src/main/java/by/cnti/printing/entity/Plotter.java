@@ -19,22 +19,22 @@ public class Plotter extends BaseEntity {
     private String documentName;
 
     @Column(name = "cyan_color")
-    private double cyanColor;
+    private Double cyanColor;
 
     @Column(name = "magenta_color")
-    private double magentaColor;
+    private Double magentaColor;
 
     @Column(name = "yellow_color")
-    private double yellowColor;
+    private Double yellowColor;
 
     @Column(name = "key_color")
-    private double keyColor;
+    private Double keyColor;
 
     @Column(name = "light_magenta_color")
-    private double lightMagentaColor;
+    private Double lightMagentaColor;
 
     @Column(name = "light_cyan_color")
-    private double lightCyanColor;
+    private Double lightCyanColor;
 
     @OneToOne
     @JoinColumn(name = "department_id")
@@ -46,6 +46,7 @@ public class Plotter extends BaseEntity {
     @Column(name = "roll_width")
     private Long rollWidth;
 
-    @Column(name = "footage_paper  ")
-    private String footagePaper;
+    @OneToOne
+    @JoinColumn(name = "type_of_paper_id")
+    private TypeOfPaper typeOfPaper;
 }

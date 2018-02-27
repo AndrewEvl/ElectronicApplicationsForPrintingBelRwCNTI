@@ -31,7 +31,6 @@
         }
     </style>
 </head>
-
 <style type="text/css">
     table th, table td {
         padding: auto;
@@ -41,14 +40,28 @@
         background-image: url('/pic/backgroung.png');
         background-size: 100%;
     }
+
+    nav {
+        background-color: #464a4c;
+        margin-bottom: 20px;
+        height: 30px;
+    }
+
+    nav ul li {
+        float: left;
+        margin-right: 22px
+    }
 </style>
 <body>
-<div th:if)>
-    <a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a>|
-    <a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a>|
-    <a th:href="@{/approval-bid}">Одобрения заявки</a>|
-    <a th:href="@{/}">Заявка</a>
-</div>
+<nav>
+    <div>
+        <a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a>|
+        <a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a>|
+        <a th:href="@{/approval-bid}">Одобрения заявки</a>|
+        <a th:href="@{/plotter-save}">Ввод данных для плоттера</a>|
+        <a th:href="@{/}">Заявка</a>
+    </div>
+</nav>
 <!--<div th:replace="fragments/header :: header"/>-->
 <div align="left">
     <form th:action="@{/}" method="post" th:object="${bidDto}">
@@ -105,15 +118,17 @@
 <script th:src="@{../static/js/bootstrap.min.js}"></script>
 <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
 
+
 <!--<div th:replace="fragments/footer :: footer"/>-->
 <div class="footer">
     <p>
         Created by Andrew Evlash
         © 2018 Minsk.
-    <span>
+        <span>
         <a th:href="@{/login}">adm</a>
         </span>
     </p>
 </div>
+<link rel="import" href="fragments/footer.html"/>
 </body>
 </html>

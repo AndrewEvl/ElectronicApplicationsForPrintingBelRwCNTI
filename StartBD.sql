@@ -32,6 +32,10 @@ INSERT INTO role (role) VALUE ('User');
 INSERT INTO status_work (work_status) VALUE ('Не готово');
 INSERT INTO status_work (work_status) VALUE ('Готово!');
 
+INSERT INTO type_of_paper (paper_type) VALUE ('Самоклейка');
+INSERT INTO type_of_paper (paper_type) VALUE ('Баннер');
+INSERT INTO type_of_paper (paper_type) VALUE ('Бумага');
+
 
 
 # SELECT * FROM bid WHERE month(date) = MONTH(now())AND YEAR(date) = YEAR(NOW());
