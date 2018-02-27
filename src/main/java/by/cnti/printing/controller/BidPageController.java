@@ -133,4 +133,8 @@ public class BidPageController {
 
         return "redirect:/approval-bid";
     }
+
+    public void createRepartBidForMounth (){
+
+    }
 }
