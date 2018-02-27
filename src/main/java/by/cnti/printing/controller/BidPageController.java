@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class BidPageController {
@@ -23,6 +22,7 @@ public class BidPageController {
     private PaperSizeService paperSizeService;
     private PaperDensityService paperDensityService;
     private PrinterModelService printerModelService;
+    private PlotterService plotterService;
     private StatusWorkService statusWorkService;
 
     @Autowired
@@ -31,12 +31,13 @@ public class BidPageController {
                              PaperSizeService paperSizeService,
                              PaperDensityService paperDensityService,
                              PrinterModelService printerModelService,
-                             StatusWorkService statusWorkService) {
+                             PlotterService plotterService, StatusWorkService statusWorkService) {
         this.bidService = bidService;
         this.departmentService = departmentService;
         this.paperSizeService = paperSizeService;
         this.paperDensityService = paperDensityService;
         this.printerModelService = printerModelService;
+        this.plotterService = plotterService;
         this.statusWorkService = statusWorkService;
     }
 
@@ -92,6 +93,8 @@ public class BidPageController {
     @GetMapping("/list-bids-now-mount")
     public String listBidGet(Model model) {
         Iterable<Bid> all = bidService.findAllNowMonth();
+        Iterable<Plotter> allPlotter = plotterService.findAllPlotterMountNow();
+        model.addAttribute("allPlotter", allPlotter);
         model.addAttribute("all", all);
         return "listBidPage";
     }
@@ -99,6 +102,8 @@ public class BidPageController {
     @GetMapping("/list-bids-last-mount")
     public String listBidLastGet(Model model) {
         Iterable<Bid> all = bidService.findAllLastMonth();
+        Iterable<Plotter> allPlotter = plotterService.findAllPlotterByLastMounts();
+        model.addAttribute("allPlotter", allPlotter);
         model.addAttribute("all", all);
         return "listBidLastMountsPage";
     }

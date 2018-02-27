@@ -24,6 +24,7 @@
 </style>
 <body>
 <!--<div th:replace="fragments/header :: header"/>-->
+<label style="color: white">Таблица учёта бумаги</label>
 <div class="container-fluid">
     <div class="row">
         <table border="1" bgcolor="white" class="table">
@@ -61,6 +62,47 @@
         </table>
     </div>
 </div>
+<label style="color: white">Таблица учёта чернил плоттера</label>
+<div class="container-fluid">
+    <div class="row">
+        <table border="1" bgcolor="white" class="table">
+            <thead th:bgcolor="white">
+            <tr>
+                <th align="center">Номер</th>
+                <th align="center">Отдел</th>
+                <th align="center">Название документа</th>
+                <th align="center">Чёрный</th>
+                <th align="center">Жёлтый</th>
+                <th align="center">Светло-голубой</th>
+                <th align="center">Светло-пурпурный</th>
+                <th align="center">Пурпурный</th>
+                <th align="center">Синий</th>
+                <th align="center">Дата</th>
+                <th align="center">Бумага тип</th>
+                <th align="center">Бумага</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:scope="row" bgcolor="white" th:each="allPlotter : ${allPlotter}">
+                <td align="center" th:text="${allPlotter.id}"></td>
+                <td align="center" th:text="${allPlotter.department.name}"></td>
+                <td align="center" th:text="${allPlotter.documentName}"></td>
+                <td align="center" th:text="${allPlotter.keyColor}"></td>
+                <td align="center" th:text="${allPlotter.yellowColor}"></td>
+                <td align="center" th:text="${allPlotter.lightCyanColor}"></td>
+                <td align="center" th:text="${allPlotter.lightMagentaColor}"></td>
+                <td align="center" th:text="${allPlotter.magentaColor}"></td>
+                <td align="center" th:text="${allPlotter.cyanColor}"></td>
+                <td align="center" th:text="${allPlotter.date}"></td>
+                <td align="center" th:text="${allPlotter.typeOfPaper.type}"></td>
+                <td align="center" th:text="${allPlotter.rollWidth}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 <!--<div th:replace="fragments/footer :: footer"/>-->
 
 <script th:src="@{../static/js/app.js}"></script>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -38,5 +39,15 @@ public class PlotterServiceImpl implements PlotterService {
     @Override
     public void delete(Plotter plotter) {
         plotterRepository.delete(plotter);
+    }
+
+    @Override
+    public List<Plotter> findAllPlotterMountNow() {
+        return plotterRepository.findAllPlotterMountNow();
+    }
+
+    @Override
+    public List<Plotter> findAllPlotterByLastMounts() {
+        return plotterRepository.findAllPlotterByLastMounts();
     }
 }
