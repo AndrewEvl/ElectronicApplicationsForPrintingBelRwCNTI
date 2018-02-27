@@ -142,28 +142,28 @@
 <div class="form-control">
     <form th:action="@{/plotter-save}" style="background: none" method="post" th:object="${plotterDto}">
         <label th:for="keyColor" style="color: black">Название документа</label>
-        <input id="documentName" class="form-control" type="text" th:field="*{documentName}"/>
+        <input id="documentName" placeholder="Название документа" class="form-control" type="text" th:field="*{documentName}"/>
 
         <label th:for="keyColor" style="color: black">Чёрный</label>
-        <input id="keyColor" class="form-control" step="0.0001" type="number" th:field="*{keyColor}">
+        <input id="keyColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{keyColor}">
 
         <label th:for="lightCyanColor" style="color: black">Светло-голубой</label>
-        <input id="lightCyanColor" class="form-control" step="0.0001" type="number" th:field="*{lightCyanColor}">
+        <input id="lightCyanColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{lightCyanColor}">
 
         <label th:for="lightMagentaColor" style="color: black">Светло-пурпурный</label>
-        <input id="lightMagentaColor" class="form-control" step="0.0001" type="number" th:field="*{lightMagentaColor}">
+        <input id="lightMagentaColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{lightMagentaColor}">
 
         <label th:for="yellowColor" style="color: black">Жёлтый</label>
-        <input id="yellowColor" class="form-control" step="0.0001" type="number" th:field="*{yellowColor}">
+        <input id="yellowColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{yellowColor}">
 
         <label th:for="magentaColor" style="color: black">Пурпурный</label>
-        <input id="magentaColor" class="form-control" step="0.0001" type="number" th:field="*{magentaColor}">
+        <input id="magentaColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{magentaColor}">
 
-        <label th:for="cyanColor" style="color: black">Синий</label>
-        <input id="cyanColor" class="form-control" step="0.0001" type="number" th:field="*{cyanColor}">
+        <label th:for="cyanColor"  style="color: black">Синий</label>
+        <input id="cyanColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{cyanColor}">
 
-        <label th:for="rollWidth" style="color: black">Использованно бумаги</label>
-        <input id="rollWidth" class="form-control" step="0.0001" type="number" th:field="*{rollWidth}">
+        <label th:for="rollWidth"  style="color: black">Использованно бумаги</label>
+        <input id="rollWidth" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{rollWidth}">
         <p></p>
         <div>
             <label>Отдел</label>

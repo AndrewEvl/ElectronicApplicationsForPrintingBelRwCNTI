@@ -11,8 +11,114 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="../static/js/bootstrap.min.js" th:href="@{/js/jquery-3.2.1.min.js}" rel="stylesheet" media="screen"/>
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+    .menu-main {
+        list-style: none;
+        margin: 40px 0 5px;
+        padding: 25px 0 5px;
+        text-align: center;
+        background: white;
+    }
+
+    .menu-main li {
+        display: inline-block;
+    }
+
+    .menu-main li:after {
+        content: "|";
+        color: #606060;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .menu-main li:last-child:after {
+        content: none;
+    }
+
+    .menu-main a {
+        text-decoration: none;
+        font-family: 'Ubuntu Condensed', sans-serif;
+        letter-spacing: 2px;
+        position: relative;
+        padding-bottom: 20px;
+        margin: 0 34px 0 30px;
+        font-size: 17px;
+        text-transform: uppercase;
+        display: inline-block;
+        transition: color .2s;
+    }
+
+    .menu-main a, .menu-main a:visited {
+        color: #9d999d;
+    }
+
+    .menu-main a.current, .menu-main a:hover {
+        color: #01549b;
+    }
+
+    .menu-main a:before,
+    .menu-main a:after {
+        content: "";
+        position: absolute;
+        height: 4px;
+        top: auto;
+        right: 50%;
+        bottom: -5px;
+        left: 50%;
+        background: #01549b;
+        transition: .8s;
+    }
+
+    .menu-main a:hover:before, .menu-main .current:before {
+        left: 0;
+    }
+
+    .menu-main a:hover:after, .menu-main .current:after {
+        right: 0;
+    }
+
+    @media (max-width: 550px) {
+        .menu-main {
+            padding-top: 0;
+        }
+
+        .menu-main li {
+            display: block;
+        }
+
+        .menu-main li:after {
+            content: none;
+        }
+
+        .menu-main a {
+            padding: 25px 0 20px;
+            margin: 0 30px;
+        }
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #464a4c;
+        color: black;
+        text-align: left;
+    }
+
+    .nav {
+        background-color: #464a4c;
+        margin-bottom: 20px;
+        height: 30px;
+    }
+
+    .nav ul li {
+        float: left;
+        margin-right: 22px
+    }
     table th, table td {
         padding: auto;
     }
@@ -23,7 +129,13 @@
     }
 </style>
 <body>
-<!--<div th:replace="fragments/header :: header"/>-->
+<ul class="menu-main">
+    <li><a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a></li>
+    <li><a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a></li>
+    <li><a th:href="@{/approval-bid}">Одобрения заявки</a></li>
+    <li><a th:href="@{/plotter-save}">Ввод данных для плоттера</a></li>
+    <li><a th:href="@{/}">Заявка</a></li>
+</ul>
 <label style="color: white">Таблица учёта бумаги</label>
 <div class="container-fluid">
     <div class="row">
@@ -102,8 +214,16 @@
         </table>
     </div>
 </div>
-<!--<div th:replace="fragments/footer :: footer"/>-->
-
+<div class="footer">
+    <p>
+        Created by Andrew Evlash
+        © 2018 Minsk.
+        <span>
+        <a th:href="@{/login}">adm</a>
+        </span>
+    </p>
+</div>
+<link rel="import" href="fragments/footer.html"/>
 <script th:src="@{../static/js/app.js}"></script>
 <script th:src="@{../static/js/bootstrap.min.js}"></script>
 <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
