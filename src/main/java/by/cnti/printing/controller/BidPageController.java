@@ -58,7 +58,7 @@ public class BidPageController {
 
     @GetMapping("/")
     public String bidPageGet(Model model) {
-        createRepartBidForMounth();
+        createReportBidForMount();
         Iterable<PaperSize> allPaperSize = paperSizeService.findAll();
         Iterable<PaperDensity> allPaperDensity = paperDensityService.findAll();
         Iterable<Department> allDepartments = departmentService.findAll();
@@ -72,7 +72,7 @@ public class BidPageController {
 
     @PostMapping("/")
     public String bidPagePost(BidDto bidDto) {
-        createRepartBidForMounth();
+        createReportBidForMount();
         Bid bid = new Bid();
         StatusWork statusWork = new StatusWork();
         statusWork.setId(1L);
@@ -122,41 +122,41 @@ public class BidPageController {
     }
 
     @PostMapping("/approval-bid")
-    public String approvalBidPost (Model model, Bid bid){
+    public String approvalBidPost(Model model, Bid bid) {
         Long id = bid.getId();
         model.addAttribute("id", id);
         return "redirect:/approval-bid/{id}";
     }
 
     @GetMapping("redir-page/{id}")
-    public String redirPage (@PathVariable("id") Long id){
+    public String redirPage(@PathVariable("id") Long id) {
         bidService.updateBid(id);
         return "redirect:/approval-bid";
     }
 
     @GetMapping("/approval-bid/{id}")
-    public String approvalIdBid (@PathVariable("id") Long id){
+    public String approvalIdBid(@PathVariable("id") Long id) {
 
         return "redirect:/approval-bid";
     }
 
-    public void createRepartBidForMounth (){
+    private void createReportBidForMount() {
         File directory = new File(DIR_PATH);
-        File report = new File(directory,"reportsForMount.doc");
+        File report = new File(directory, "reportsForMount.doc");
         System.out.println(report.getAbsolutePath());
-        try(InputStream inputStream = new BufferedInputStream(new FileInputStream(report))) {
+        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(report))) {
             Scanner scanner = new Scanner(inputStream);
             scanner.useDelimiter(";");
-            while(scanner.hasNext()) {
+            while (scanner.hasNext()) {
                 System.out.println(scanner.next());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try(Reader reader = new BufferedReader(new FileReader(report))) {
+        try (Reader reader = new BufferedReader(new FileReader(report))) {
             int result = 0;
-            while(result != -1) {
+            while (result != -1) {
                 result = reader.read();
                 System.out.println((char) result);
             }
@@ -164,7 +164,7 @@ public class BidPageController {
             e.printStackTrace();
         }
 
-        try(DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(report)))) {
+        try (DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(report)))) {
             outputStream.writeUTF(bidService.findAll().toString());
         } catch (IOException e) {
             e.printStackTrace();
