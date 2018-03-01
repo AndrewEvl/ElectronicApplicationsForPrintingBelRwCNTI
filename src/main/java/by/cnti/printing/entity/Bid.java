@@ -51,4 +51,30 @@ public class Bid extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "printer_model_id")
     private PrinterModel printer;
+
+    @Override
+    public String toString() {
+        if (sheets != null) {
+            return "№" + getId() +
+                    " Отдел " + department.getName() +
+                    ", ФИО заказчика " + customerOder + '\'' +
+                    ", Название документа " + documentName + '\'' +
+                    ", Сшивка " + sheets + '\'' +
+                    ", Тираж " + edition +
+                    ", Формат " + paperSize.getSize() +
+                    ", Дата " + date +
+                    ", Плотность бумаги " + paperDensity.getDensity() +
+                    ", Принтер " + printer.getModel() + "\r";
+        }
+        return "№" + getId() +
+                " Отдел " + department.getName() +
+                ", ФИО заказчика " + customerOder + '\'' +
+                ", Разрешение " + allow + '\'' +
+                ", Название документа " + documentName + '\'' +
+                ", Тираж " + edition +
+                ", Формат " + paperSize.getSize() +
+                ", Дата " + date +
+                ", Плотность бумаги " + paperDensity.getDensity() +
+                ", Принтер " + printer.getModel() + "\r";
+    }
 }

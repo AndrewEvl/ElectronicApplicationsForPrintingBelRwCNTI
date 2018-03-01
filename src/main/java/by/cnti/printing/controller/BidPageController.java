@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 @Controller
 public class BidPageController {
+
+    private static final String PARENT_PATH = "src" + File.separator;
+    public static final String DIR_PATH = PARENT_PATH + File.separator;
 
     private BidService bidService;
     private DepartmentService departmentService;
@@ -53,6 +58,7 @@ public class BidPageController {
 
     @GetMapping("/")
     public String bidPageGet(Model model) {
+        createRepartBidForMounth();
         Iterable<PaperSize> allPaperSize = paperSizeService.findAll();
         Iterable<PaperDensity> allPaperDensity = paperDensityService.findAll();
         Iterable<Department> allDepartments = departmentService.findAll();
@@ -66,9 +72,9 @@ public class BidPageController {
 
     @PostMapping("/")
     public String bidPagePost(BidDto bidDto) {
+        createRepartBidForMounth();
         Bid bid = new Bid();
         StatusWork statusWork = new StatusWork();
-
         statusWork.setId(1L);
         Department department = departmentService.findById(bidDto.getDepartmentId()).get();
         PaperDensity paperDensity = paperDensityService.findById(bidDto.getPaperDensityId()).get();
@@ -135,6 +141,33 @@ public class BidPageController {
     }
 
     public void createRepartBidForMounth (){
+        File directory = new File(DIR_PATH);
+        File report = new File(directory,"reportsForMount.doc");
+        System.out.println(report.getAbsolutePath());
+        try(InputStream inputStream = new BufferedInputStream(new FileInputStream(report))) {
+            Scanner scanner = new Scanner(inputStream);
+            scanner.useDelimiter(";");
+            while(scanner.hasNext()) {
+                System.out.println(scanner.next());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        try(Reader reader = new BufferedReader(new FileReader(report))) {
+            int result = 0;
+            while(result != -1) {
+                result = reader.read();
+                System.out.println((char) result);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try(DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(report)))) {
+            outputStream.writeUTF(bidService.findAll().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
