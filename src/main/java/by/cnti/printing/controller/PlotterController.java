@@ -24,7 +24,9 @@ public class PlotterController {
     private DepartmentService departmentService;
 
     @Autowired
-    public PlotterController(PlotterService plotterService, TypeOfPaperService typeOfPaperService, DepartmentService departmentService) {
+    public PlotterController(PlotterService plotterService,
+                             TypeOfPaperService typeOfPaperService,
+                             DepartmentService departmentService) {
         this.plotterService = plotterService;
         this.typeOfPaperService = typeOfPaperService;
         this.departmentService = departmentService;

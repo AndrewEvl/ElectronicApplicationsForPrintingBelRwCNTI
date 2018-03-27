@@ -37,6 +37,5 @@ INSERT INTO type_of_paper (paper_type) VALUE ('Баннер');
 INSERT INTO type_of_paper (paper_type) VALUE ('Бумага');
 
 
-
 # SELECT * FROM bid WHERE month(date) = MONTH(now())AND YEAR(date) = YEAR(NOW());
 # SELECT * FROM bid WHERE month(date) = MONTH(DATE_ADD(NOW(), INTERVAL -1 MONTH))AND YEAR(date) = YEAR(now());

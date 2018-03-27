@@ -27,8 +27,8 @@ public class Bid extends BaseEntity {
     @Column(name = "document_name")
     private String documentName;
 
-    @Column(name = "sheets")
-    private String sheets;
+    @Column(name = "stitching")
+    private Stitching stitching;
 
     @Column(name = "edition")
     private Long edition;
@@ -54,12 +54,12 @@ public class Bid extends BaseEntity {
 
     @Override
     public String toString() {
-        if (sheets != null) {
+        if (stitching != null) {
             return "№" + getId() +
                     " Отдел " + department.getName() +
                     ", ФИО заказчика " + customerOder + '\'' +
                     ", Название документа " + documentName + '\'' +
-                    ", Сшивка " + sheets + '\'' +
+                    ", Сшивка " + stitching + '\'' +
                     ", Тираж " + edition +
                     ", Формат " + paperSize.getSize() +
                     ", Дата " + date +

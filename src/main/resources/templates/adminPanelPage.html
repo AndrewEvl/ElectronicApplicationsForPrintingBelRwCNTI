@@ -131,50 +131,12 @@
 </head>
 <body>
 <ul class="menu-main">
-    <li><a th:href="@{/list-bids-now-mount}">Готовые заявки</a></li>
+    <li><a th:href="@{/admin-list-page}">Заявки за текущий месяц</a></li>
+    <li><a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a></li>
+    <li><a th:href="@{/approval-bid-list}">Одобрения заявки</a></li>
+    <li><a th:href="@{/plotter-save}">Ввод данных для плоттера</a></li>
     <li><a th:href="@{/}">Заявка</a></li>
 </ul>
-<form method="post">
-    <div class="container-fluid">
-
-        <div class="row">
-            <table border="1" bgcolor="white" class="table">
-                <thead data-th-bgcolor="white">
-                <tr>
-                    <th align="center">Номер</th>
-                    <th align="center">Отдел</th>
-                    <th align="center">Название документа</th>
-                    <th align="center">ФИО заказчика</th>
-                    <th align="center">Тираж</th>
-                    <th align="center">Формат бумаги</th>
-                    <th align="center">Плотность бумаги</th>
-                    <th align="center">Модель принтера</th>
-                    <th align="center">Статус работы</th>
-                    <th align="center">Дата</th>
-                    <th align="center">Разрешение</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:scope="row" bgcolor="white" th:each="all : ${bids}">
-                    <td align="center" th:text="${all.id}"></td>
-                    <td align="center" th:text="${all.department.name}"></td>
-                    <td align="center">
-                        <a th:href="@{/approval-bid (id=${all.id})}" th:text="${all.documentName}"></a>
-                    </td>
-                    <td align="center" th:text="${all.customerOder}"></td>
-                    <td align="center" th:text="${all.edition}"></td>
-                    <td align="center" th:text="${all.paperSize.size}"></td>
-                    <td align="center" th:text="${all.paperDensity.density}"></td>
-                    <td align="center" th:text="${all.printer.model}"></td>
-                    <td align="center" th:text="${all.statusWork.statusWork}"></td>
-                    <td align="center" th:text="${all.date}"></td>
-                    <td align="center" th:text="${all.allow}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</form>
 <div class="footer">
     <p>
         Created by Andrew Evlash

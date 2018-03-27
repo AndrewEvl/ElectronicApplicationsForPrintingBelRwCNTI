@@ -159,10 +159,7 @@
 </style>
 <body>
 <ul class="menu-main">
-    <li><a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a></li>
-    <li><a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a></li>
-    <li><a th:href="@{/approval-bid}">Одобрения заявки</a></li>
-    <li><a th:href="@{/plotter-save}">Ввод данных для плоттера</a></li>
+    <li><a th:href="@{/list-bids-now-mount}">Готовые заявки</a></li>
     <li><a th:href="@{/}">Заявка</a></li>
 </ul>
 <div align="left">
@@ -219,7 +216,7 @@
         Created by Andrew Evlash
         © 2018 Minsk.
         <span>
-        <a th:href="@{/login}">adm</a>
+        <a th:href="@{/login}">adm</a><a th:href="@{/admin-panel}">AdmPan</a>
         </span>
     </p>
 </div>

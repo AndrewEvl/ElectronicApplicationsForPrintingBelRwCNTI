@@ -27,5 +27,5 @@ public interface BidRepository extends CrudRepository<Bid, Long> {
     List<Bid> findAllByAllowIsNull();
 
     @Query (value = "UPDATE bid SET bid.allow = ('Одобренно') WHERE bid.id = ?" , nativeQuery = true)
-    Bid updateBid (Long id);
+    Bid updateBid (String id);
 }

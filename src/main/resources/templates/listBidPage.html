@@ -15,6 +15,7 @@
 </head>
 <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+
     .menu-main {
         list-style: none;
         margin: 40px 0 5px;
@@ -119,6 +120,7 @@
         float: left;
         margin-right: 22px
     }
+
     table th, table td {
         padding: auto;
     }
@@ -130,9 +132,9 @@
 </style>
 <body>
 <ul class="menu-main">
-    <li><a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a></li>
+    <li><a th:href="@{/admin-list-page}">Заявки за текущий месяц</a></li>
     <li><a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a></li>
-    <li><a th:href="@{/approval-bid}">Одобрения заявки</a></li>
+    <li><a th:href="@{/approval-bid-list}">Одобрения заявки</a></li>
     <li><a th:href="@{/plotter-save}">Ввод данных для плоттера</a></li>
     <li><a th:href="@{/}">Заявка</a></li>
 </ul>
@@ -159,13 +161,15 @@
             <tr th:scope="row" bgcolor="white" th:each="all : ${all}">
                 <td align="center" th:text="${all.id}"></td>
                 <td align="center" th:text="${all.department.name}"></td>
-                <td align="center" th:text="${all.documentName}"></td>
+                <td align="center">
+                <a th:href="@{/info-bid(id=${all.id})}" th:text="${all.documentName}"></td>
                 <td align="center" th:text="${all.customerOder}"></td>
                 <td align="center" th:text="${all.edition}"></td>
                 <td align="center" th:text="${all.paperSize.size}"></td>
                 <td align="center" th:text="${all.paperDensity.density}"></td>
                 <td align="center" th:text="${all.printer.model}"></td>
-                <td align="center" th:text="${all.statusWork.statusWork}"></td>
+                <td align="center">
+                    <a th:href="@{/status-work(id=${all.id})}" th:text="${all.statusWork.statusWork}"></td>
                 <td align="center" th:text="${all.date}"></td>
                 <td align="center" bgcolor="#ff8c00" th:if="${all.allow != null}"
                     th:text="${all.allow}"></td>
@@ -219,7 +223,7 @@
         Created by Andrew Evlash
         © 2018 Minsk.
         <span>
-        <a th:href="@{/login}">adm</a>
+        <a th:href="@{/login}">adm</a><a th:href="@{/admin-panel}">AdmPan</a>
         </span>
     </p>
 </div>

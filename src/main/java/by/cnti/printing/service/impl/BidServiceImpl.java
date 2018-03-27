@@ -73,7 +73,7 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public Bid updateBid(Long id) {
+    public Bid updateBid(String id) {
         return bidRepository.updateBid(id);
     }
 }

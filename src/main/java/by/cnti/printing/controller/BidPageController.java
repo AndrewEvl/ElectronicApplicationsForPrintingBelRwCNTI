@@ -4,6 +4,7 @@ import by.cnti.printing.dto.BidDto;
 import by.cnti.printing.entity.*;
 import by.cnti.printing.service.interfaceService.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +12,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Controller
 public class BidPageController {
 
     private static final String PARENT_PATH = "src" + File.separator;
-    public static final String DIR_PATH = PARENT_PATH + File.separator;
+    private static final String DIR_PATH = PARENT_PATH + File.separator;
 
     private BidService bidService;
     private DepartmentService departmentService;
@@ -58,7 +61,7 @@ public class BidPageController {
 
     @GetMapping("/")
     public String bidPageGet(Model model) {
-        createReportBidForMount();
+//        createReportBidForMount();
         Iterable<PaperSize> allPaperSize = paperSizeService.findAll();
         Iterable<PaperDensity> allPaperDensity = paperDensityService.findAll();
         Iterable<Department> allDepartments = departmentService.findAll();
@@ -72,7 +75,6 @@ public class BidPageController {
 
     @PostMapping("/")
     public String bidPagePost(BidDto bidDto) {
-        createReportBidForMount();
         Bid bid = new Bid();
         StatusWork statusWork = new StatusWork();
         statusWork.setId(1L);
@@ -84,7 +86,7 @@ public class BidPageController {
         bid.setDocumentName(bidDto.getDocumentName());
         bid.setCustomerOder(bidDto.getCustomerOder());
         bid.setEdition(bidDto.getEdition());
-        bid.setSheets(bidDto.getSheets());
+        bid.setStitching(new Stitching());
 
         bid.setPaperSize(paperSize);
         bid.setDepartment(department);
@@ -102,7 +104,7 @@ public class BidPageController {
         Iterable<Plotter> allPlotter = plotterService.findAllPlotterMountNow();
         model.addAttribute("allPlotter", allPlotter);
         model.addAttribute("all", all);
-        return "listBidPage";
+        return "listBidFromUser";
     }
 
     @GetMapping("/list-bids-last-mount")
@@ -114,35 +116,56 @@ public class BidPageController {
         return "listBidLastMountsPage";
     }
 
-    @GetMapping("/approval-bid")
+    @GetMapping("/approval-bid-list")
     public String approvalBidGet(Model model) {
         List<Bid> allByAllowIsNull = bidService.findAllByAllowIsNull();
         model.addAttribute("bids", allByAllowIsNull);
         return "approvalBidPage";
     }
 
-    @PostMapping("/approval-bid")
-    public String approvalBidPost(Model model, Bid bid) {
-        Long id = bid.getId();
-        model.addAttribute("id", id);
-        return "redirect:/approval-bid/{id}";
+    @GetMapping("/approval-bid")
+    public String approvalBidStatusGet (Bid bid){
+        Bid approvalBid = bidService.findById(bid.getId()).get();
+        approvalBid.setAllow("Одобренно");
+        bidService.save(approvalBid);
+        return "redirect:/approval-bid-list";
     }
 
-    @GetMapping("redir-page/{id}")
-    public String redirPage(@PathVariable("id") Long id) {
-        bidService.updateBid(id);
-        return "redirect:/approval-bid";
+    @GetMapping("/admin-list-page")
+    public String adminListPage (Model model){
+        Iterable<Bid> all = bidService.findAllNowMonth();
+        Iterable<Plotter> allPlotter = plotterService.findAllPlotterMountNow();
+        model.addAttribute("allPlotter", allPlotter);
+        model.addAttribute("all", all);
+        return "listBidPage";
     }
 
-    @GetMapping("/approval-bid/{id}")
-    public String approvalIdBid(@PathVariable("id") Long id) {
+    @GetMapping("/admin-panel")
+    public String adminPanelPage (){
+        return "adminPanelPage";
+    }
 
-        return "redirect:/approval-bid";
+    @GetMapping("/status-work")
+    public String statusWorkGet(Bid bid){
+        Bid statusBid = bidService.findById(bid.getId()).get();
+        StatusWork statusWork = new StatusWork();
+        statusWork.setId(2L);
+        statusBid.setStatusWork(statusWork);
+        bidService.save(statusBid);
+        return "redirect:/admin-list-page";
+    }
+
+    @GetMapping("/info-bid")
+    public String infoBidGet (Bid bid, Model model){
+        Bid bidById = bidService.findById(bid.getId()).get();
+        model.addAttribute("bidById", bidById);
+        return "infoBid";
     }
 
     private void createReportBidForMount() {
+        String fileName = "reportsForMount.doc";
         File directory = new File(DIR_PATH);
-        File report = new File(directory, "reportsForMount.doc");
+        File report = new File(directory, fileName);
         System.out.println(report.getAbsolutePath());
         try (InputStream inputStream = new BufferedInputStream(new FileInputStream(report))) {
             Scanner scanner = new Scanner(inputStream);
@@ -165,7 +188,7 @@ public class BidPageController {
         }
 
         try (DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(report)))) {
-            outputStream.writeUTF(bidService.findAll().toString());
+            outputStream.writeUTF(bidService.findAll().toString().replaceAll("[^A-Za-zА-Яа-я0-9№\\s]", ""));
         } catch (IOException e) {
             e.printStackTrace();
         }

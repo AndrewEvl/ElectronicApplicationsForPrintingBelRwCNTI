@@ -14,6 +14,7 @@
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+
         .menu-main {
             list-style: none;
             margin: 40px 0 5px;
@@ -133,38 +134,56 @@
 </style>
 <body>
 <ul class="menu-main">
-    <li><a th:href="@{/list-bids-now-mount}">Заявки за текущий месяц</a></li>
+    <li><a th:href="@{/admin-list-page}">Заявки за текущий месяц</a></li>
     <li><a th:href="@{/list-bids-last-mount}">Заявки за прошлый месяц</a></li>
-    <li><a th:href="@{/approval-bid}">Одобрения заявки</a></li>
+    <li><a th:href="@{/approval-bid-list}">Одобрения заявки</a></li>
     <li><a th:href="@{/plotter-save}">Ввод данных для плоттера</a></li>
     <li><a th:href="@{/}">Заявка</a></li>
 </ul>
 <div class="form-control">
     <form th:action="@{/plotter-save}" style="background: none" method="post" th:object="${plotterDto}">
         <label th:for="keyColor" style="color: black">Название документа</label>
-        <input id="documentName" placeholder="Название документа" class="form-control" type="text" th:field="*{documentName}"/>
+        <input id="documentName" placeholder="Название документа" class="form-control" type="text"
+               th:field="*{documentName}"/>
 
         <label th:for="keyColor" style="color: black">Чёрный</label>
         <input id="keyColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{keyColor}">
 
         <label th:for="lightCyanColor" style="color: black">Светло-голубой</label>
-        <input id="lightCyanColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{lightCyanColor}">
+        <input id="lightCyanColor" placeholder="x.xx" class="form-control" step="0.01" type="number"
+               th:field="*{lightCyanColor}">
 
         <label th:for="lightMagentaColor" style="color: black">Светло-пурпурный</label>
-        <input id="lightMagentaColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{lightMagentaColor}">
+        <input id="lightMagentaColor" placeholder="x.xx" class="form-control" step="0.01" type="number"
+               th:field="*{lightMagentaColor}">
 
         <label th:for="yellowColor" style="color: black">Жёлтый</label>
-        <input id="yellowColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{yellowColor}">
+        <input id="yellowColor" placeholder="x.xx" class="form-control" step="0.01" type="number"
+               th:field="*{yellowColor}">
 
         <label th:for="magentaColor" style="color: black">Пурпурный</label>
-        <input id="magentaColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{magentaColor}">
+        <input id="magentaColor" placeholder="x.xx" class="form-control" step="0.01" type="number"
+               th:field="*{magentaColor}">
 
-        <label th:for="cyanColor"  style="color: black">Синий</label>
+        <label th:for="cyanColor" style="color: black">Синий</label>
         <input id="cyanColor" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{cyanColor}">
 
-        <label th:for="rollWidth"  style="color: black">Использованно бумаги</label>
+        <label th:for="rollWidth" style="color: black">Использованно бумаги</label>
         <input id="rollWidth" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{rollWidth}">
         <p></p>
+        <div class="footer">
+            <p>
+                Created by Andrew Evlash
+                © 2018 Minsk.
+                <span>
+        <a th:href="@{/login}">adm</a><a th:href="@{/admin-panel}">AdmPan</a>
+        </span>
+            </p>
+        </div>
+        <link rel="import" href="fragments/footer.html"/>
+        <script th:src="@{../static/js/app.js}"></script>
+        <script th:src="@{../static/js/bootstrap.min.js}"></script>
+        <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
         <div>
             <label>Отдел</label>
             <select th:field="*{departmentId}" autofocus>
@@ -185,18 +204,5 @@
 
     </form>
 </div>
-<div class="footer">
-    <p>
-        Created by Andrew Evlash
-        © 2018 Minsk.
-        <span>
-        <a th:href="@{/login}">adm</a>
-        </span>
-    </p>
-</div>
-<link rel="import" href="fragments/footer.html"/>
-<script th:src="@{../static/js/app.js}"></script>
-<script th:src="@{../static/js/bootstrap.min.js}"></script>
-<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
 </body>
 </html>

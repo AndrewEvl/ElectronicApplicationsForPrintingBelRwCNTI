@@ -27,5 +27,6 @@ public interface BidService {
 
     List<Bid> findAllByAllowIsNull();
 
-    Bid updateBid (Long id);
+    Bid updateBid (String id);
+
 }

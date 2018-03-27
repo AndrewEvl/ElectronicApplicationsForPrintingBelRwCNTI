@@ -5,15 +5,17 @@
       layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Все заявки за прошлый месяц</title>
+    <title>Все заявки за текущий месяц</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="../static/js/bootstrap.min.js" th:href="@{/js/jquery-3.2.1.min.js}" rel="stylesheet" media="screen"/>
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+
     .menu-main {
         list-style: none;
         margin: 40px 0 5px;
@@ -118,6 +120,7 @@
         float: left;
         margin-right: 22px
     }
+
     table th, table td {
         padding: auto;
     }
@@ -139,7 +142,7 @@
 <div class="container-fluid">
     <div class="row">
         <table border="1" bgcolor="white" class="table">
-            <thead th:bgcolor="white">
+            <thead class="thead-inverse" th:bgcolor="white">
             <tr>
                 <th align="center">Номер</th>
                 <th align="center">Отдел</th>
@@ -155,58 +158,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:scope="row" bgcolor="white" th:each="all : ${all}">
-                <td align="center" th:text="${all.id}"></td>
-                <td align="center" th:text="${all.department.name}"></td>
-                <td align="center" th:text="${all.documentName}"></td>
-                <td align="center" th:text="${all.customerOder}"></td>
-                <td align="center" th:text="${all.edition}"></td>
-                <td align="center" th:text="${all.paperSize.size}"></td>
-                <td align="center" th:text="${all.paperDensity.density}"></td>
-                <td align="center" th:text="${all.printer.model}"></td>
-                <td align="center" th:text="${all.statusWork.statusWork}"></td>
-                <td align="center" th:text="${all.date}"></td>
-                <td align="center" bgcolor="#ff8c00" th:if="${all.allow != null}"
-                    th:text="${all.allow}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<label style="color: white">Таблица учёта чернил плоттера</label>
-<div class="container-fluid">
-    <div class="row">
-        <table border="1" bgcolor="white" class="table">
-            <thead th:bgcolor="white">
-            <tr>
-                <th align="center">Номер</th>
-                <th align="center">Отдел</th>
-                <th align="center">Название документа</th>
-                <th align="center">Чёрный</th>
-                <th align="center">Жёлтый</th>
-                <th align="center">Светло-голубой</th>
-                <th align="center">Светло-пурпурный</th>
-                <th align="center">Пурпурный</th>
-                <th align="center">Синий</th>
-                <th align="center">Дата</th>
-                <th align="center">Бумага тип</th>
-                <th align="center">Бумага</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:scope="row" bgcolor="white" th:each="allPlotter : ${allPlotter}">
-                <td align="center" th:text="${allPlotter.id}"></td>
-                <td align="center" th:text="${allPlotter.department.name}"></td>
-                <td align="center" th:text="${allPlotter.documentName}"></td>
-                <td align="center" th:text="${allPlotter.keyColor}"></td>
-                <td align="center" th:text="${allPlotter.yellowColor}"></td>
-                <td align="center" th:text="${allPlotter.lightCyanColor}"></td>
-                <td align="center" th:text="${allPlotter.lightMagentaColor}"></td>
-                <td align="center" th:text="${allPlotter.magentaColor}"></td>
-                <td align="center" th:text="${allPlotter.cyanColor}"></td>
-                <td align="center" th:text="${allPlotter.date}"></td>
-                <td align="center" th:text="${allPlotter.typeOfPaper.type}"></td>
-                <td align="center" th:text="${allPlotter.rollWidth}"></td>
+            <tr th:scope="row" bgcolor="white">
+                <td align="center" th:text="${bidById.id}"></td>
+                <td align="center" th:text="${bidById.department.name}"></td>
+                <td align="center" th:text="${bidById.documentName}"></td>
+                <td align="center" th:text="${bidById.customerOder}"></td>
+                <td align="center" th:text="${bidById.edition}"></td>
+                <td align="center" th:text="${bidById.paperSize.size}"></td>
+                <td align="center" th:text="${bidById.paperDensity.density}"></td>
+                <td align="center" th:text="${bidById.printer.model}"></td>
+                <td align="center" th:text="${bidById.statusWork.statusWork}"></td>
+                <td align="center" th:text="${bidById.date}"></td>
+                <td align="center" th:text="${bidById.allow}"></td>
             </tr>
             </tbody>
         </table>
