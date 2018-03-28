@@ -149,8 +149,10 @@
                 <th align="center">Название документа</th>
                 <th align="center">ФИО заказчика</th>
                 <th align="center">Тираж</th>
+                <th align="center">Колличество страниц</th>
                 <th align="center">Формат бумаги</th>
                 <th align="center">Плотность бумаги</th>
+                <th align="center">Сшивка</th>
                 <th align="center">Модель принтера</th>
                 <th align="center">Статус работы</th>
                 <th align="center">Дата</th>
@@ -164,8 +166,10 @@
                 <td align="center" th:text="${bidById.documentName}"></td>
                 <td align="center" th:text="${bidById.customerOder}"></td>
                 <td align="center" th:text="${bidById.edition}"></td>
+                <td align="center" th:text="${bidById.numberOfPages}"></td>
                 <td align="center" th:text="${bidById.paperSize.size}"></td>
                 <td align="center" th:text="${bidById.paperDensity.density}"></td>
+                <td align="center" th:text="${bidById.stitching}"></td>
                 <td align="center" th:text="${bidById.printer.model}"></td>
                 <td align="center" th:text="${bidById.statusWork.statusWork}"></td>
                 <td align="center" th:text="${bidById.date}"></td>
@@ -174,6 +178,14 @@
             </tbody>
         </table>
     </div>
+    <form th:action="@{/info-bid}" method="post" th:object="${bid}">
+        <label th:for="stitching"></label>
+        <p><label>
+                <textarea type="text" rows="2" cols="80" placeholder="На что сшили?" th:field="*{stitching}"
+                          required autofocus></textarea>
+        </label></p>
+        <button type="submit">Добавить описание</button>
+    </form>
 </div>
 <div class="footer">
     <p>

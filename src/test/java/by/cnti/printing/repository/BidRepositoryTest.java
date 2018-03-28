@@ -42,7 +42,7 @@ public class BidRepositoryTest {
         bid.setDate(LocalDate.now());
         bid.setDocumentName("Test");
         bid.setEdition(5L);
-        bid.setSheets("no");
+        bid.setStitching("no");
         return bid;
     }
 }

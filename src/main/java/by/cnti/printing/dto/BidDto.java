@@ -11,8 +11,9 @@ public class BidDto {
     private String customerOder;
     private String allow;
     private String documentName;
-    private String sheets;
+    private String stitching;
     private Long edition;
+    private Long numberOfPages;
     private Long paperSizeId;
     private Long paperDensityId;
     private Long statusWorkId;

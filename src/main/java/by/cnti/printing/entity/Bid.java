@@ -27,8 +27,11 @@ public class Bid extends BaseEntity {
     @Column(name = "document_name")
     private String documentName;
 
+    @Column(name = "number_of_pages")
+    private Long numberOfPages;
+
     @Column(name = "stitching")
-    private Stitching stitching;
+    private String stitching;
 
     @Column(name = "edition")
     private Long edition;

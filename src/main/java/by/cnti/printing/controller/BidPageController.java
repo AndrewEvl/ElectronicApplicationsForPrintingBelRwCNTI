@@ -4,19 +4,15 @@ import by.cnti.printing.dto.BidDto;
 import by.cnti.printing.entity.*;
 import by.cnti.printing.service.interfaceService.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 @Controller
@@ -24,6 +20,7 @@ public class BidPageController {
 
     private static final String PARENT_PATH = "src" + File.separator;
     private static final String DIR_PATH = PARENT_PATH + File.separator;
+    private Long ID;
 
     private BidService bidService;
     private DepartmentService departmentService;
@@ -86,7 +83,8 @@ public class BidPageController {
         bid.setDocumentName(bidDto.getDocumentName());
         bid.setCustomerOder(bidDto.getCustomerOder());
         bid.setEdition(bidDto.getEdition());
-        bid.setStitching(new Stitching());
+        bid.setStitching(bidDto.getStitching());
+        bid.setNumberOfPages(bidDto.getNumberOfPages());
 
         bid.setPaperSize(paperSize);
         bid.setDepartment(department);
@@ -158,8 +156,17 @@ public class BidPageController {
     @GetMapping("/info-bid")
     public String infoBidGet (Bid bid, Model model){
         Bid bidById = bidService.findById(bid.getId()).get();
+        ID = bid.getId();
         model.addAttribute("bidById", bidById);
         return "infoBid";
+    }
+
+    @PostMapping("/info-bid")
+    public String infoBidPost (Bid bid){
+        Bid findBid = bidService.findById(ID).get();
+        findBid.setStitching(bid.getStitching());
+        bidService.save(findBid);
+        return "redirect:/admin-list-page";
     }
 
     private void createReportBidForMount() {

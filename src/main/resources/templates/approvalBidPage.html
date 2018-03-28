@@ -146,6 +146,7 @@
                     <th align="center">Название документа</th>
                     <th align="center">ФИО заказчика</th>
                     <th align="center">Тираж</th>
+                    <th align="center">Колличество страниц</th>
                     <th align="center">Формат бумаги</th>
                     <th align="center">Плотность бумаги</th>
                     <th align="center">Модель принтера</th>
@@ -163,6 +164,7 @@
                     </td>
                     <td align="center" th:text="${all.customerOder}"></td>
                     <td align="center" th:text="${all.edition}"></td>
+                    <td align="center" th:text="${all.numberOfPages}"></td>
                     <td align="center" th:text="${all.paperSize.size}"></td>
                     <td align="center" th:text="${all.paperDensity.density}"></td>
                     <td align="center" th:text="${all.printer.model}"></td>
