@@ -1,4 +1,4 @@
-package by.cnti.printing.conig;
+package by.cnti.printing.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
