@@ -3,6 +3,9 @@ package by.cnti.printing.controller;
 import by.cnti.printing.dto.BidDto;
 import by.cnti.printing.entity.*;
 import by.cnti.printing.service.interfaceService.*;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 
 @Controller
 public class BidPageController {
 
-    private static final String PARENT_PATH = "src" + File.separator;
-    private static final String DIR_PATH = PARENT_PATH + File.separator;
+    //    private static final String PARENT_PATH = "src" + File.separator;
+//    private static final String DIR_PATH = PARENT_PATH + File.separator;
     private Long ID;
 
     private BidService bidService;
@@ -82,10 +87,13 @@ public class BidPageController {
 
         bid.setDocumentName(bidDto.getDocumentName());
         bid.setCustomerOder(bidDto.getCustomerOder());
+        if (bidDto.getEdition() != 1) {
+            bid.setNumberOfPages(bidDto.getNumberOfPages() * bidDto.getEdition());
+        } else {
+            bid.setNumberOfPages(bidDto.getNumberOfPages());
+        }
         bid.setEdition(bidDto.getEdition());
         bid.setStitching(bidDto.getStitching());
-        bid.setNumberOfPages(bidDto.getNumberOfPages());
-
         bid.setPaperSize(paperSize);
         bid.setDepartment(department);
         bid.setPaperDensity(paperDensity);
@@ -107,6 +115,7 @@ public class BidPageController {
 
     @GetMapping("/list-bids-last-mount")
     public String listBidLastGet(Model model) {
+        createReportBidForMount();
         Iterable<Bid> all = bidService.findAllLastMonth();
         Iterable<Plotter> allPlotter = plotterService.findAllPlotterByLastMounts();
         model.addAttribute("allPlotter", allPlotter);
@@ -122,7 +131,7 @@ public class BidPageController {
     }
 
     @GetMapping("/approval-bid")
-    public String approvalBidStatusGet (Bid bid){
+    public String approvalBidStatusGet(Bid bid) {
         Bid approvalBid = bidService.findById(bid.getId()).get();
         approvalBid.setAllow("Одобренно");
         bidService.save(approvalBid);
@@ -130,7 +139,7 @@ public class BidPageController {
     }
 
     @GetMapping("/admin-list-page")
-    public String adminListPage (Model model){
+    public String adminListPage(Model model) {
         Iterable<Bid> all = bidService.findAllNowMonth();
         Iterable<Plotter> allPlotter = plotterService.findAllPlotterMountNow();
         model.addAttribute("allPlotter", allPlotter);
@@ -139,12 +148,12 @@ public class BidPageController {
     }
 
     @GetMapping("/admin-panel")
-    public String adminPanelPage (){
+    public String adminPanelPage() {
         return "adminPanelPage";
     }
 
     @GetMapping("/status-work")
-    public String statusWorkGet(Bid bid){
+    public String statusWorkGet(Bid bid) {
         Bid statusBid = bidService.findById(bid.getId()).get();
         StatusWork statusWork = new StatusWork();
         statusWork.setId(2L);
@@ -154,7 +163,7 @@ public class BidPageController {
     }
 
     @GetMapping("/info-bid")
-    public String infoBidGet (Bid bid, Model model){
+    public String infoBidGet(Bid bid, Model model) {
         Bid bidById = bidService.findById(bid.getId()).get();
         ID = bid.getId();
         model.addAttribute("bidById", bidById);
@@ -162,7 +171,7 @@ public class BidPageController {
     }
 
     @PostMapping("/info-bid")
-    public String infoBidPost (Bid bid){
+    public String infoBidPost(Bid bid) {
         Bid findBid = bidService.findById(ID).get();
         findBid.setStitching(bid.getStitching());
         bidService.save(findBid);
@@ -170,34 +179,88 @@ public class BidPageController {
     }
 
     private void createReportBidForMount() {
-        String fileName = "reportsForMount.doc";
-        File directory = new File(DIR_PATH);
-        File report = new File(directory, fileName);
-        System.out.println(report.getAbsolutePath());
-        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(report))) {
-            Scanner scanner = new Scanner(inputStream);
-            scanner.useDelimiter(";");
-            while (scanner.hasNext()) {
-                System.out.println(scanner.next());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("Просто лист");
+        List<Bid> bidList = bidService.findAllLastMonth();
+        Row header = sheet.createRow(0);
+        header.createCell(5).setCellValue(LocalDate.now().getMonth().toString());
+        int rowNum = 1;
+
+        Map<String, String> integerListMap = bidService.allPaperForMount(1L, 1L);
+        System.out.println(integerListMap.toString());
+
+        Row row = sheet.createRow(rowNum);
+        row.createCell(0).setCellValue("№");
+        row.createCell(1).setCellValue("Даты");
+        row.createCell(2).setCellValue("Отдел");
+        row.createCell(3).setCellValue("Фамилия");
+        row.createCell(4).setCellValue("Название документа");
+        row.createCell(5).setCellValue("Принтер");
+        row.createCell(6).setCellValue("Плотность");
+        row.createCell(7).setCellValue("Формат");
+        row.createCell(8).setCellValue("Кол. Лист.");
+        row.createCell(9).setCellValue("Сшивка");
+
+        for (Bid dataModel : bidList) {
+            createSheetHeader(sheet, ++rowNum, dataModel);
         }
 
-        try (Reader reader = new BufferedReader(new FileReader(report))) {
-            int result = 0;
-            while (result != -1) {
-                result = reader.read();
-                System.out.println((char) result);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        int plotterRowNum = rowNum + 2;
+        Row plotterRow = sheet.createRow(plotterRowNum);
+        plotterRow.createCell(0).setCellValue("№");
+        plotterRow.createCell(1).setCellValue("Дата");
+        plotterRow.createCell(2).setCellValue("Отдел");
+        plotterRow.createCell(3).setCellValue("Материал");
+        plotterRow.createCell(4).setCellValue("Название документа");
+        plotterRow.createCell(5).setCellValue("Длин. Отп.");
+        plotterRow.createCell(6).setCellValue("K");
+        plotterRow.createCell(7).setCellValue("Y");
+        plotterRow.createCell(8).setCellValue("M");
+        plotterRow.createCell(9).setCellValue("C");
+        plotterRow.createCell(10).setCellValue("LM");
+        plotterRow.createCell(11).setCellValue("LC");
+
+        List<Plotter> allPlotterByLastMounts = plotterService.findAllPlotterMountNow();
+        for (Plotter dataMidel : allPlotterByLastMounts) {
+            createPlotterReport(sheet, ++plotterRowNum, dataMidel);
         }
 
-        try (DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(report)))) {
-            outputStream.writeUTF(bidService.findAll().toString().replaceAll("[^A-Za-zА-Яа-я0-9№\\s]", ""));
+        try (FileOutputStream out = new FileOutputStream(new File("C:\\Отчет за " + LocalDate.now().getMonth().minus(1L) + " " + LocalDate.now().getYear() + ".xls"))) {
+            workbook.write(out);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void createSheetHeader(HSSFSheet sheet, int rowNum, Bid dataModel) {
+        Row row = sheet.createRow(rowNum);
+
+        row.createCell(0).setCellValue(dataModel.getId());
+        row.createCell(1).setCellValue(dataModel.getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+        row.createCell(2).setCellValue(dataModel.getDepartment().getName());
+        row.createCell(3).setCellValue(dataModel.getCustomerOder());
+        row.createCell(4).setCellValue(dataModel.getDocumentName());
+        row.createCell(5).setCellValue(dataModel.getPrinter().getModel());
+        row.createCell(6).setCellValue(dataModel.getPaperDensity().getDensity());
+        row.createCell(7).setCellValue(dataModel.getPaperSize().getSize());
+        row.createCell(8).setCellValue(dataModel.getNumberOfPages());
+        row.createCell(9).setCellValue(dataModel.getStitching());
+    }
+
+    private void createPlotterReport(HSSFSheet sheet, int rowNum, Plotter model) {
+        Row row = sheet.createRow(rowNum);
+
+        row.createCell(0).setCellValue(model.getId());
+        row.createCell(1).setCellValue(model.getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+        row.createCell(2).setCellValue(model.getDepartment().getName());
+        row.createCell(3).setCellValue(model.getTypeOfPaper().getType());
+        row.createCell(4).setCellValue(model.getDocumentName());
+        row.createCell(5).setCellValue(model.getRollWidth());
+        row.createCell(6).setCellValue(model.getKeyColor());
+        row.createCell(7).setCellValue(model.getYellowColor());
+        row.createCell(8).setCellValue(model.getMagentaColor());
+        row.createCell(9).setCellValue(model.getCyanColor());
+        row.createCell(10).setCellValue(model.getLightMagentaColor());
+        row.createCell(11).setCellValue(model.getLightCyanColor());
     }
 }

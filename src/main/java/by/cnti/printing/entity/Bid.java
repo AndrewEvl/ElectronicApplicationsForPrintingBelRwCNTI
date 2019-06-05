@@ -9,8 +9,8 @@ import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @Table(name = "bid")
 public class Bid extends BaseEntity {
 
@@ -54,6 +54,9 @@ public class Bid extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "printer_model_id")
     private PrinterModel printer;
+
+    @Column(name = "two_sided_printing")
+    private Long twoSidedPrinting;
 
     @Override
     public String toString() {

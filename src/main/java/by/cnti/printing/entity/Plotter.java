@@ -44,7 +44,7 @@ public class Plotter extends BaseEntity {
     private LocalDate date;
 
     @Column(name = "roll_width")
-    private Long rollWidth;
+    private Double rollWidth;
 
     @OneToOne
     @JoinColumn(name = "type_of_paper_id")

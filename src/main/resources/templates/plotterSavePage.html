@@ -171,19 +171,6 @@
         <label th:for="rollWidth" style="color: black">Использованно бумаги</label>
         <input id="rollWidth" placeholder="x.xx" class="form-control" step="0.01" type="number" th:field="*{rollWidth}">
         <p></p>
-        <div class="footer">
-            <p>
-                Created by Andrew Evlash
-                © 2018 Minsk.
-                <span>
-        <a th:href="@{/login}">adm</a><a th:href="@{/admin-panel}">AdmPan</a>
-        </span>
-            </p>
-        </div>
-        <link rel="import" href="fragments/footer.html"/>
-        <script th:src="@{../static/js/app.js}"></script>
-        <script th:src="@{../static/js/bootstrap.min.js}"></script>
-        <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
         <div>
             <label>Отдел</label>
             <select th:field="*{departmentId}" autofocus>
@@ -201,6 +188,19 @@
             </select>
             <button type="submit">Сохранить результат</button>
         </div>
+        <div class="footer">
+            <p>
+                Created by Andrew Evlash
+                © 2018 Minsk.
+                <span>
+        <a th:href="@{/login}">adm</a><a th:href="@{/admin-panel}">AdmPan</a>
+        </span>
+            </p>
+        </div>
+        <link rel="import" href="fragments/footer.html"/>
+        <script th:src="@{../static/js/app.js}"></script>
+        <script th:src="@{../static/js/bootstrap.min.js}"></script>
+        <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
 
     </form>
 </div>

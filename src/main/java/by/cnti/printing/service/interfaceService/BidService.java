@@ -3,6 +3,7 @@ package by.cnti.printing.service.interfaceService;
 import by.cnti.printing.entity.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface BidService {
@@ -27,6 +28,9 @@ public interface BidService {
 
     List<Bid> findAllByAllowIsNull();
 
-    Bid updateBid (String id);
+    Bid updateBidStatusWork(String id);
+
+    Map<String, String> allPaperForMount(Long paperSizeId, Long paperDensityId);
+
 
 }

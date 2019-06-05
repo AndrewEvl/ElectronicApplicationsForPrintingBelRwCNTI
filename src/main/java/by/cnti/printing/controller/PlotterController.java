@@ -66,6 +66,6 @@ public class PlotterController {
         plotter.setMagentaColor(plotterDto.getMagentaColor());
         plotter.setYellowColor(plotterDto.getYellowColor());
         plotterService.save(plotter);
-        return "redirect:/list-bids-now-mount";
+        return "redirect:/plotter-save";
     }
 }

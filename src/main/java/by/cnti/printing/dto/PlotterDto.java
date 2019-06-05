@@ -18,6 +18,6 @@ public class PlotterDto {
     private Double lightCyanColor;
     private Long departmentId;
     private LocalDate date;
-    private Long rollWidth;
+    private Double rollWidth;
     private Long typeOfPaperId;
 }

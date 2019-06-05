@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Repository
 public interface BidRepository extends CrudRepository<Bid, Long> {
+
     @Query(value = "SELECT * FROM bid WHERE month(date) = MONTH(now())AND YEAR(date) = YEAR(NOW())", nativeQuery = true)
     List<Bid> findAllBidPMountNow();
 
@@ -26,6 +28,9 @@ public interface BidRepository extends CrudRepository<Bid, Long> {
 
     List<Bid> findAllByAllowIsNull();
 
-    @Query (value = "UPDATE bid SET bid.allow = ('Одобренно') WHERE bid.id = ?" , nativeQuery = true)
-    Bid updateBid (String id);
+    @Query(value = "UPDATE bid SET bid.allow = ('Одобренно') WHERE bid.id = ?", nativeQuery = true)
+    Bid updateBidStatusWork(String id);
+
+    @Query(value = "SELECT SUM(bid.number_of_pages),paper_size.size FROM bid RIGHT JOIN paper_size ON bid.paper_size_id = paper_size.id WHERE paper_density_id = ? AND paper_size_id = ?", nativeQuery = true)
+    Map<String, String> allPaperForMount(Long paperDensityId, Long paperSizeId);
 }

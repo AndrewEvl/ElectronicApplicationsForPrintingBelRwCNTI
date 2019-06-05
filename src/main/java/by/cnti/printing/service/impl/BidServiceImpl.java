@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Transactional
@@ -73,7 +74,13 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public Bid updateBid(String id) {
-        return bidRepository.updateBid(id);
+    public Bid updateBidStatusWork(String id) {
+        return bidRepository.updateBidStatusWork(id);
     }
+
+    @Override
+    public Map<String,String> allPaperForMount(Long paperSizeId, Long paperDensityId) {
+        return bidRepository.allPaperForMount(paperDensityId,paperSizeId);
+    }
+
 }
