@@ -18,4 +18,5 @@ public class BidDto {
     private Long paperDensityId;
     private Long statusWorkId;
     private Long printerModelId;
+    private String twoSidedPrinting;
 }

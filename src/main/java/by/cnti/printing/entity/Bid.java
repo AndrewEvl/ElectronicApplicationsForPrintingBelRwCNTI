@@ -56,7 +56,7 @@ public class Bid extends BaseEntity {
     private PrinterModel printer;
 
     @Column(name = "two_sided_printing")
-    private Long twoSidedPrinting;
+    private String twoSidedPrinting;
 
     @Override
     public String toString() {

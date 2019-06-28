@@ -1,6 +1,7 @@
 package by.cnti.printing.service.interfaceService;
 
 import by.cnti.printing.entity.*;
+import com.google.common.collect.ArrayListMultimap;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public interface BidService {
 
     Bid updateBidStatusWork(String id);
 
-    Map<String, String> allPaperForMount(Long paperSizeId, Long paperDensityId);
+    Map<String,String> allPaperForMount(Long paperSizeId, Long paperDensityId);
 
 
 }

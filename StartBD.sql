@@ -14,11 +14,8 @@ INSERT INTO printers (model) VALUE ('HP 5520');
 
 INSERT INTO paper_density (density) VALUE ('80');
 INSERT INTO paper_density (density) VALUE ('90');
-INSERT INTO paper_density (density) VALUE ('120');
 INSERT INTO paper_density (density) VALUE ('135');
-INSERT INTO paper_density (density) VALUE ('160');
 INSERT INTO paper_density (density) VALUE ('170');
-INSERT INTO paper_density (density) VALUE ('200');
 INSERT INTO paper_density (density) VALUE ('250');
 INSERT INTO paper_density (density) VALUE ('300');
 

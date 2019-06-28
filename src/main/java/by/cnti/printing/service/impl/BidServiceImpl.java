@@ -4,10 +4,12 @@ package by.cnti.printing.service.impl;
 import by.cnti.printing.entity.*;
 import by.cnti.printing.repository.BidRepository;
 import by.cnti.printing.service.interfaceService.BidService;
+import com.google.common.collect.ArrayListMultimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.OptionalDataException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -55,7 +57,7 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public List<Bid> findAllByPaperDensityAndPaperSize(PaperDensity paperDensity, PaperSize paperSize) {
-        return bidRepository.findAllByPaperDensityAndPaperSize(paperDensity,paperSize);
+        return bidRepository.findAllByPaperDensityAndPaperSize(paperDensity, paperSize);
     }
 
     @Override
@@ -79,8 +81,7 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public Map<String,String> allPaperForMount(Long paperSizeId, Long paperDensityId) {
-        return bidRepository.allPaperForMount(paperDensityId,paperSizeId);
+    public Map<String, String> allPaperForMount(Long paperSizeId, Long paperDensityId) {
+        return bidRepository.allPaperForMount(paperDensityId, paperSizeId);
     }
-
 }

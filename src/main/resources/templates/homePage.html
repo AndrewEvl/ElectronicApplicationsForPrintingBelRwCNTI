@@ -183,6 +183,9 @@
         <label>
             <input type="number" style="width: 50px" min="1" placeholder="1...." th:field="*{numberOfPages}" required
                    autofocus>
+            <label style="color: white">Двустороняя печать : </label>
+            <input type="checkbox" value="+" th:field="*{twoSidedPrinting}">
+
         </label>
         <p>
             <select th:field="*{paperSizeId}" autofocus>
@@ -213,7 +216,7 @@
                 </option>
             </select>
         </p>
-        <button type="submit" onclick="hello()" style="color: #01549b">Отправить на печать</button>
+        <button type="submit" style="color: #01549b">Отправить на печать</button>
     </form>
 </div>
 <div class="footer">
